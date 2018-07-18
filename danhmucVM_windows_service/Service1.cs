@@ -8,6 +8,8 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Text.RegularExpressions;
+
 namespace danhmucVM_windows_service
 {
     public partial class Service1 : ServiceBase
