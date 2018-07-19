@@ -30,7 +30,7 @@ namespace danhmucVM_windows_service
         private const int KEYEVENTF_KEYUP = 0x2;
 
         [DllImport("user32.dll")]
-        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
         private static void PressKey(byte keyCode)
         {
@@ -145,9 +145,18 @@ namespace danhmucVM_windows_service
 
         protected override void OnStart(string[] args)
         {
-            loadLandau = new Thread(loadkhikhoidong);
-            loadLandau.IsBackground = true;
-            loadLandau.Start();
+            try
+            {
+                loadLandau = new Thread(loadkhikhoidong);
+                loadLandau.IsBackground = true;
+                loadLandau.Start();
+            }
+            catch (Exception e)
+            {
+                ghiloi.WriteLogError(e);
+                return;
+            }
+            
         }
 
         protected override void OnStop()
